@@ -1,5 +1,6 @@
 import os
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from starlette.responses import FileResponse
 
@@ -23,7 +24,7 @@ async def download_file(filename: str):
 
 @files_router.get("/get_files")
 async def get(db: Session = Depends(database)):
-    return db.query(Files).all()
+    return db.query(Files).order_by(desc(Files.id)).all()
 
 
 @files_router.post("/create_file")

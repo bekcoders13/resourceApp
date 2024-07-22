@@ -9,6 +9,9 @@ class CreateBook(BaseModel):
     publication_date: int
     created_at: date
 
+    # class Config:
+    #     orm_mode = True
+
 
 class UpdateBook(BaseModel):
     ident: int = Field(..., gt=0)

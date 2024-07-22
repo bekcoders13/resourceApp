@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter, Query, Depends, HTTPException
+from sqlalchemy import desc
 from sqlalchemy.orm import Session, joinedload
 
 from db import database
@@ -27,7 +28,7 @@ def get(ident: int = 0, title: str = None,  author: str = None,
     query = get_book_f(title, author, db)
 
     products = (query.options(joinedload(Books.files).load_only(Files.file_path)).
-                offset((page - 1) * limit).limit(limit).all())
+                order_by(desc(Books.id)).offset((page - 1) * limit).limit(limit).all())
 
     return products
 
