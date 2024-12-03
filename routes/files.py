@@ -10,8 +10,6 @@ from models.files import Files
 
 files_router = APIRouter(prefix="/files", tags=["Files operations"])
 
-# pdf file operations
-
 
 @files_router.get("/download_file")
 async def download_file(filename: str):
